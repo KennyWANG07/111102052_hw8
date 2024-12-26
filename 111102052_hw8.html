@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Calculator</title>
+    <link rel="stylesheet" href="111102052_hw8.css">
+</head>
+<body>
+    <div class="calculator-container">
+        <h1>JS Calculator</h1>
+        <form id="calculatorForm">
+            <label for="number1">Number 1</label>
+            <input type="number" id="number1" placeholder="Enter first number" required>
+            
+            <label for="number2">Number 2</label>
+            <input type="number" id="number2" placeholder="Enter second number" required>
+            
+            <label for="operator">Operate way?</label>
+            <select id="operator">
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+                <option value="/">/</option>
+            </select>
+            
+            <button type="button" onclick="calculate()">Add</button>
+        </form>
+        <div id="result" class="result"></div>
+    </div>
+    <script>
+        function calculate() {
+    // 取得輸入值
+    const number1 = parseFloat(document.getElementById("number1").value);
+    const number2 = parseFloat(document.getElementById("number2").value);
+    const operator = document.getElementById("operator").value;
+
+    // 檢查是否為有效輸入
+    if (isNaN(number1) || isNaN(number2)) {
+        displayResult("Invalid input! Please enter valid numbers.");
+        return;
+    }
+
+    // 運算邏輯
+    let result;
+    switch (operator) {
+        case "+":
+            result = add(number1, number2);
+            break;
+        case "-":
+            result = subtract(number1, number2);
+            break;
+        case "*":
+            result = multiply(number1, number2);
+            break;
+        case "/":
+            if (number2 === 0) {
+                displayResult("Error: Division by zero is not allowed.");
+                return;
+            }
+            result = divide(number1, number2);
+            break;
+        default:
+            displayResult("Invalid operator selected!");
+            return;
+    }
+
+    // 顯示結果
+    displayResult(`Result = ${result.toFixed(2)}`);
+}
+
+// 運算函式
+function add(a, b) {
+    return a + b;
+}
+
+function subtract(a, b) {
+    return a - b;
+}
+
+function multiply(a, b) {
+    return a * b;
+}
+
+function divide(a, b) {
+    return a / b;
+}
+
+// 顯示結果
+function displayResult(message) {
+    document.getElementById("result").innerText = message;
+}
+
+    </script>
+</body>
+</html>
